@@ -14,27 +14,13 @@ if not exist "%input_file%" (
 :: Clear the output file if it exists
 if exist "%output_file%" del "%output_file%"
 
-:: Initialize a counter to track line numbers
-set "line_number=0"
-
-:: Get the total number of lines in the file
-for /f %%a in ('type "%input_file%" ^| find /c /v ""') do set "total_lines=%%a"
-
 :: Process each line in the input file
-for /f "tokens=*" %%a in (%input_file%) do (
-    set /a "line_number+=1"
+for /f "tokens=2" %%a in ('findstr /b "loading: " "%input_file%"') do (
+        
+    :: Write the cleaned line to the output file
+    echo %%a >> "%output_file%"
     
-    :: Skip the first and last lines
-    if !line_number! neq 1 if !line_number! neq !total_lines! (
-        set "line=%%a"
-        
-        :: Remove unwanted characters
-        set "line=!line:,=!"
-        set "line=!line:'=!"
-        
-        :: Write the cleaned line to the output file
-        echo !line! >> "%output_file%"
-    )
 )
 
 echo File cleaned successfully. Output saved to "%output_file%".
+endlocal
