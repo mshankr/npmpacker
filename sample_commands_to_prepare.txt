@@ -1,0 +1,3 @@
+npx npm-remote-ls --verbose @types/node@^20.11.26 >> npm_list3.txt
+npx npm-remote-ls --verbose @types/react@^18.2.43 >> npm_list3.txt
+npx npm-remote-ls --verbose @types/react-dom@^18.2.17 >> npm_list3.txt
